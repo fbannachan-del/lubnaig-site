@@ -1,6 +1,6 @@
 :root{--bg:#07090c;--ink:#e8f0f2;--mute:#9fb1b8;--teal:#1f8a8a;--teal2:#5fd0c8;--navy:#24365a;--line:rgba(255,255,255,.08)}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font:400 17px/1.6 system-ui,-apple-system,"Segoe UI",Inter,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.6 system-ui,-apple-system,"Segoe UI",Inter,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
 a{color:inherit}
 .nav{position:fixed;inset:0 0 auto;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;transition:background .3s,backdrop-filter .3s}
 .nav.scrolled{background:rgba(7,9,12,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
@@ -70,3 +70,8 @@ input[type=range]{width:100%;margin-top:10px;accent-color:#5fd0c8;height:6px}
 .faq{display:grid;gap:12px;margin-top:34px}.faq details{border:1px solid var(--line);border-radius:18px;padding:18px 22px;background:rgba(255,255,255,.02);transition:border-color .3s}.faq details[open]{border-color:rgba(95,208,200,.5)}
 .faq summary{cursor:pointer;font-weight:700;font-size:19px;list-style:none;display:flex;justify-content:space-between}.faq summary:after{content:"+";color:var(--teal2);font-size:24px;line-height:1;transition:transform .3s}.faq details[open] summary:after{transform:rotate(45deg)}.faq p{color:var(--mute);margin-top:10px}
 .mag{transition:transform .2s}
+
+.flow-scroll{position:relative;height:calc(100vh + 6 * 55vh)}
+.flow-pin{position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;padding:100px 0 24px;box-sizing:border-box}
+.flow-hint{text-align:center;color:var(--mute);font-size:13px;margin-top:14px;opacity:.7}
+@media(max-width:899px){.steps{grid-template-columns:repeat(6,1fr);gap:6px}.steps button{justify-content:center;padding:10px 0}.steps button span{display:none}.steps button:hover{transform:none}.stage{min-height:0}.stage p{font-size:16px}.stage .big-n{font-size:48px}.flow-pin{padding-top:70px}.flow{gap:12px}}

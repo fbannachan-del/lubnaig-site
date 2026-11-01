@@ -16,21 +16,23 @@ if(!reduce)requestAnimationFrame(draw)}requestAnimationFrame(draw)})();
 (()=>{const S=[
 ['Come in','A relaxed first chat','We meet you and the team, learn how the business really runs, and agree what good looks like.',['Your goals and pressure points','Where the work piles up','What success means to you'],'1 to 2 meetings'],
 ['Assess','We look under the bonnet','We map your workflows, time spend, tools and data, and measure where hours go today.',['Workflow and time map','Tooling and data review','Baseline throughput numbers'],'1 to 2 weeks'],
-['Find savings and capacity','Where the wins are','We rank every opportunity by hours freed, savings and risk, so you see exactly where you can save and where you can grow capacity.',['Ranked opportunity list','Savings and capacity estimates','A clear first pick'],'Delivered with the assessment'],
+['Find savings and capacity','Where the wins are','We rank every opportunity by hours freed, cost and headcount savings, and risk, so you see exactly where you can cut costs and where you can grow capacity.',['Ranked opportunity list','Headcount, cost and capacity estimates','A clear first pick'],'Delivered with the assessment'],
 ['Design','Redraw the work','We design new flows where AI agents carry the repeatable load and your people steer, check and handle the human moments.',['Future state workflow','Guardrails and sign off points','Rollout plan your team backs'],'1 to 2 weeks'],
 ['Build','Wire it in','We connect agents to your tools, data and processes. Tested, guarded and documented, with your team trained to use it.',['Working agents in your stack','Testing and quality checks','Training and handover notes'],'2 to 6 weeks'],
-['Run','Keep it getting sharper','We operate and tune the system every week, report the capacity and savings gained, and pick the next win.',['Weekly tuning and support','Monthly capacity report','Roadmap of next wins'],'Ongoing']];
-const ol=document.querySelector('.steps'),st=document.getElementById('stage');let cur=0,timer;
-S.forEach((s,i)=>{const li=document.createElement('li');li.innerHTML=`<button role="tab" aria-selected="false"><i>${i+1}</i><span><b>${s[0]}</b><small>${s[1]}</small></span></button>`;li.firstChild.onclick=()=>{stop();show(i)};ol.append(li)});
+['Run','Keep it getting sharper','We operate and tune the system every week, report the capacity, headcount and cost savings gained, and pick the next win.',['Weekly tuning and support','Monthly capacity report','Roadmap of next wins'],'Ongoing']];
+const ol=document.querySelector('.steps'),st=document.getElementById('stage'),fs=document.getElementById('flowScroll');let cur=-1;
+S.forEach((s,i)=>{const li=document.createElement('li');li.innerHTML=`<button role="tab" aria-selected="false"><i>${i+1}</i><span><b>${s[0]}</b><small>${s[1]}</small></span></button>`;li.firstChild.onclick=()=>go(i);ol.append(li)});
 const bs=[...ol.querySelectorAll('button')];
-function show(i){cur=(i+S.length)%S.length;bs.forEach((b,j)=>{b.setAttribute('aria-selected',j===cur);b.classList.toggle('done',j<cur)});const s=S[cur];
+function go(i){i=(i+S.length)%S.length;const r=fs.getBoundingClientRect(),top=scrollY+r.top,span=fs.offsetHeight-innerHeight;scrollTo({top:top+span*(i+.5)/S.length,behavior:'smooth'})}
+function show(i){if(i===cur)return;cur=i;bs.forEach((b,j)=>{b.setAttribute('aria-selected',j===cur);b.classList.toggle('done',j<cur)});const s=S[cur];
 st.innerHTML=`<div class="big-n">0${cur+1}</div><h3>${s[0]}</h3><p>${s[2]}</p><div class="meta"><div><h4>You get</h4><ul>${s[3].map(x=>`<li>${x}</li>`).join('')}</ul></div><div><h4>Typical time</h4><ul><li>${s[4]}</li></ul></div></div><div class="navbtns"><button data-d="-1">← Back</button><span class="bar"><i style="width:${(cur+1)/S.length*100}%"></i></span><button data-d="1">${cur===S.length-1?'Start again':'Next →'}</button></div>`;
-st.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{stop();show(cur+ +b.dataset.d)});st.firstChild&&st.style.setProperty('--k',cur)}
-function stop(){clearInterval(timer)}show(0);
-const fo=new IntersectionObserver(e=>{if(e[0].isIntersecting){timer=setInterval(()=>show(cur+1),6000);fo.disconnect()}},{threshold:.5});fo.observe(document.querySelector('.flow'));
+st.style.animation='none';st.offsetHeight;st.style.animation='';
+st.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>go(cur+ +b.dataset.d))}
+function onFlow(){const r=fs.getBoundingClientRect(),span=fs.offsetHeight-innerHeight,p=Math.min(Math.max(-r.top/span,0),.9999);show(Math.floor(p*S.length))}
+addEventListener('scroll',onFlow,{passive:true});addEventListener('resize',onFlow);onFlow();
 const $=id=>document.getElementById(id);let last=[0,0,0];
 function anim(el,to,i){const from=last[i];last[i]=to;const t0=performance.now();(function f(t){const k=Math.min((t-t0)/500,1);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-k,3))).toLocaleString('en-GB');if(k<1)requestAnimationFrame(f)})(t0)}
-function calc(){const p=+$('p').value,h=+$('h').value,s=+$('s').value/100;$('oP').textContent=p;$('oH').textContent=h;$('oS').textContent=Math.round(s*100)+'%';const hw=p*h*s;anim($('rH'),hw,0);anim($('rF'),hw/37.5,1);anim($('rY'),hw*46,2)}
+function calc(){const p=+$('p').value,h=+$('h').value,s=+$('s').value/100;$('oP').textContent=p;$('oH').textContent=h;$('oS').textContent=Math.round(s*100)+'%';const hw=p*h*s;anim($('rH'),hw,0);anim($('rF'),hw/37.5,1);anim($('rY'),Math.round(hw/37.5*38000),2)}
 ['p','h','s'].forEach(k=>$(k).oninput=calc);calc();
 const pr=document.querySelector('.progress');addEventListener('scroll',()=>{pr.style.width=scrollY/(document.body.scrollHeight-innerHeight)*100+'%'},{passive:true});
 if(matchMedia('(hover:hover)').matches){document.querySelectorAll('.tilt,.card').forEach(el=>{el.onpointermove=e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(800px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateY(-4px)`};el.onpointerleave=()=>el.style.transform=''});
