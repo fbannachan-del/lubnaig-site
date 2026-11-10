@@ -106,8 +106,12 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em
   pointer-events: none;
 }
 .bar::before {
-  content: ""; position: absolute; inset: 0 0 -2.5rem 0; z-index: -1;
-  background: linear-gradient(to bottom, rgb(var(--veil) / 0.9) 0%, rgb(var(--veil) / 0.72) 45%, rgb(var(--veil) / 0) 100%);
+  content: ""; position: absolute; inset: 0 0 -1.8rem 0; z-index: -1;
+  /* a frosted band: whatever scrolls beneath the logo and links is blurred out, not ghosted through */
+  background: linear-gradient(to bottom, rgb(var(--veil) / 0.94) 0%, rgb(var(--veil) / 0.88) 60%, rgb(var(--veil) / 0) 100%);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  -webkit-mask: linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
+  mask: linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
   opacity: var(--bar-veil, 0);
 }
 .bar > * { pointer-events: auto; }
@@ -159,6 +163,9 @@ main { position: relative; z-index: 1; }
 }
 .btn:hover { opacity: 0.86; }
 .mail { padding: 0.4rem 0; }
+
+/* by day the water under the headline is already pale: go easy on the wash */
+:root[data-light="day"] .hero::after { opacity: 0.55; }
 
 /* one orchestrated arrival: the name settles as the loch appears */
 @media (prefers-reduced-motion: no-preference) {
