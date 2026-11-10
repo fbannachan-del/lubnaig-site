@@ -1,0 +1,289 @@
+{
+ "size_m": 16800.0,
+ "n": 768,
+ "texel_m": 21.875,
+ "origin": {
+  "lat": 56.283,
+  "lon": -4.285,
+  "projection": "EPSG:27700 (British National Grid) via pyproj; X=E-E0 (east), Z=-(N-N0) (south); E0,N0=258641.45,712407.12"
+ },
+ "height_encoding": "RGB8: v=(R<<8)|G, height_m=v/2 (0.5 m steps, B=0). Row 0 = north (Z=-8400), col 0 = west (X=-8400); texel centre X=-8400+(col+0.5)*texel_m. Raw heights, loch bed not carved.",
+ "water_encoding": "R: Lubnaig signed distance d (m), byte=clamp(128+d/2,0,255), positive inside water; G: all other water combined, same encoding; B=0. Zero crossing on mask boundary (EDT*texel - texel/2).",
+ "lubnaig": {
+  "level_m": 120.0,
+  "area_km2": 2.332,
+  "length_km": 6.18,
+  "centroid": [
+   -894.1,
+   -778.7
+  ]
+ },
+ "centreline": [
+  [
+   -2582.6,
+   -3147.5
+  ],
+  [
+   -2546.5,
+   -2894.9
+  ],
+  [
+   -2453.6,
+   -2662.6
+  ],
+  [
+   -2294.7,
+   -2462.3
+  ],
+  [
+   -2126.5,
+   -2270.6
+  ],
+  [
+   -1978.2,
+   -2062.9
+  ],
+  [
+   -1796.0,
+   -1885.8
+  ],
+  [
+   -1586.2,
+   -1739.3
+  ],
+  [
+   -1369.7,
+   -1603.1
+  ],
+  [
+   -1190.8,
+   -1423.0
+  ],
+  [
+   -975.1,
+   -1286.9
+  ],
+  [
+   -762.1,
+   -1145.6
+  ],
+  [
+   -548.5,
+   -1005.6
+  ],
+  [
+   -348.6,
+   -850.3
+  ],
+  [
+   -227.3,
+   -625.8
+  ],
+  [
+   -175.0,
+   -377.2
+  ],
+  [
+   -171.6,
+   -121.5
+  ],
+  [
+   -139.0,
+   132.3
+  ],
+  [
+   -126.5,
+   387.6
+  ],
+  [
+   -154.4,
+   641.8
+  ],
+  [
+   -137.8,
+   896.8
+  ],
+  [
+   -122.3,
+   1152.1
+  ],
+  [
+   -136.0,
+   1407.1
+  ],
+  [
+   -161.1,
+   1660.3
+  ],
+  [
+   -142.2,
+   1914.1
+  ]
+ ],
+ "other_water": [
+  {
+   "level_m": 126.4,
+   "area_km2": 0.995,
+   "centroid": [
+    -7033.3,
+    -7852.8
+   ]
+  },
+  {
+   "level_m": 124.63,
+   "area_km2": 0.145,
+   "centroid": [
+    -3808.3,
+    -7966.0
+   ]
+  },
+  {
+   "level_m": 148.1,
+   "area_km2": 1.27,
+   "centroid": [
+    -6211.9,
+    3179.0
+   ]
+  },
+  {
+   "level_m": 86.5,
+   "area_km2": 0.677,
+   "centroid": [
+    -7256.4,
+    5957.5
+   ]
+  },
+  {
+   "level_m": 80.0,
+   "area_km2": 3.754,
+   "centroid": [
+    -1486.2,
+    6712.7
+   ]
+  },
+  {
+   "level_m": 56.7,
+   "area_km2": 0.09,
+   "centroid": [
+    5815.2,
+    6899.4
+   ]
+  },
+  {
+   "level_m": 127.3,
+   "area_km2": 0.446,
+   "centroid": [
+    -4360.9,
+    7988.1
+   ]
+  }
+ ],
+ "min_height_m": 50.06,
+ "max_height_m": 956.0,
+ "places": [
+  {
+   "name": "Ben Ledi",
+   "lat": 56.2577,
+   "lon": -4.3236,
+   "x": -2484.1,
+   "z": 2735.2,
+   "expected_m": 879,
+   "found_m": 853.9,
+   "found_x": -2439.1,
+   "found_z": 2635.9
+  },
+  {
+   "name": "Stuc a' Chroin",
+   "lat": 56.3298,
+   "lon": -4.238,
+   "x": 3078.4,
+   "z": -5112.0,
+   "expected_m": 975,
+   "found_m": 955.4,
+   "found_x": 3073.4,
+   "found_z": -5064.1
+  },
+  {
+   "name": "Ben Vorlich",
+   "lat": 56.343,
+   "lon": -4.2195,
+   "x": 4269.4,
+   "z": -6543.8,
+   "expected_m": 985,
+   "found_m": 956.0,
+   "found_x": 4342.2,
+   "found_z": -6464.1
+  },
+  {
+   "name": "Beinn Each",
+   "lat": 56.314,
+   "lon": -4.262,
+   "x": 1536.9,
+   "z": -3402.4,
+   "expected_m": 813,
+   "found_m": 781.7,
+   "found_x": 1498.4,
+   "found_z": -3357.8
+  },
+  {
+   "name": "Benvane",
+   "lat": 56.2968,
+   "lon": -4.369,
+   "x": -5146.2,
+   "z": -1711.3,
+   "expected_m": 821,
+   "found_m": 803.2,
+   "found_x": -5129.7,
+   "found_z": -1257.8
+  },
+  {
+   "name": "Ardnandave Hill",
+   "lat": 56.2772,
+   "lon": -4.3175,
+   "x": -2033.3,
+   "z": 578.1,
+   "expected_m": 715,
+   "found_m": 712.6,
+   "found_x": -2701.6,
+   "found_z": 754.7
+  },
+  {
+   "name": "Strathyre village",
+   "lat": 56.326,
+   "lon": -4.329,
+   "x": -2561.4,
+   "z": -4875.9,
+   "expected_m": null,
+   "found_m": 127.8,
+   "found_x": -2561.4,
+   "found_z": -4875.9
+  },
+  {
+   "name": "Callander",
+   "lat": 56.244,
+   "lon": -4.214,
+   "x": 4255.0,
+   "z": 4483.3,
+   "expected_m": null,
+   "found_m": 76.2,
+   "found_x": 4255.0,
+   "found_z": 4483.3
+  },
+  {
+   "name": "Falls of Leny",
+   "lat": 56.251,
+   "lon": -4.259,
+   "x": 1492.4,
+   "z": 3613.8,
+   "expected_m": null,
+   "found_m": 127.9,
+   "found_x": 1492.4,
+   "found_z": 3613.8
+  }
+ ],
+ "attribution": [
+  "Europe terrain data produced using Copernicus data and information funded by the European Union - EU-DEM layers;",
+  "United Kingdom terrain data \u00a9 Environment Agency copyright and/or database right 2015. All rights reserved;",
+  "Mapzen (if using Mapzen-hosted service)"
+ ]
+}
