@@ -134,7 +134,9 @@ export async function createLochScene({ canvas, env, assets, tier, still = false
     }
     // narrow screens need a wider lens to hold both shores, and a lower gaze so the water fills the frame
     const portrait = camera.aspect < 1 ? 1 + (1 - camera.aspect) * 0.75 : 1;
-    if (camera.aspect < 1) { tmpE.set(-(1 - camera.aspect) * 0.17, 0, 0, 'YXZ'); camera.quaternion.multiply(tmpQ.setFromEuler(tmpE)); }
+    // (only down at the water: from the air the view is already looking down)
+    const nearWater = 1 - Math.min(1, Math.max(0, (cur.pos.y - T.level - 30) / 200));
+    if (camera.aspect < 1) { tmpE.set(-(1 - camera.aspect) * 0.17 * nearWater, 0, 0, 'YXZ'); camera.quaternion.multiply(tmpQ.setFromEuler(tmpE)); }
     camera.fov = cur.fov * portrait;
     const sh = wide ? cur.shift : 0;
     if (sh > 0.002) camera.setViewOffset(width, height, -sh * width, 0, width, height);

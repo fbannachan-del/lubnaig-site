@@ -73,10 +73,11 @@ void main(){
 
   float ndv = max(dot(N, V), 0.0);
   float F = 0.02 + 0.98 * pow(1.0 - ndv, 5.0);
+  F = mix(F, max(F, 0.34), uNight);   // at night the loch is the palest thing in the glen: let it hold the sky
 
   // mirror image, smeared vertically the way real reflections stretch toward you
   vec4 rc = vRefl;
-  vec2 smear = vec2(N.x * 0.035, N.z * 0.11) * (0.25 + 0.75 * lod);
+  vec2 smear = vec2(N.x * 0.03, N.z * 0.072) * (0.25 + 0.75 * lod);
   rc.xy += smear * rc.w;
   // three taps up and down: takes the stair-steps off mirrored ridgelines
   vec4 r2 = rc;
@@ -84,6 +85,7 @@ void main(){
   r2.y = rc.y + 0.003 * rc.w; refl += texture2DProj(tDiffuse, r2).rgb * 0.25;
   r2.y = rc.y - 0.003 * rc.w; refl += texture2DProj(tDiffuse, r2).rgb * 0.25;
   refl *= 1.0 - 0.22 * uRain;      // rain-pocked water is duller than the sky it mirrors
+  refl = min(refl, vec3(7.0));     // a mirrored sun should glow, not punch a white hole
 
   // peat-stained body of the loch: amber in the shallows, near black in the deep
   float depth = clamp(sd * 0.09, 0.0, 22.0);
@@ -96,7 +98,7 @@ void main(){
 
   // glitter path under the sun or moon
   vec3 R = reflect(-V, N);
-  float spec = pow(max(dot(R, uKeyDir), 0.0), 900.0) * 14.0 + pow(max(dot(R, uKeyDir), 0.0), 90.0) * 0.12;
+  float spec = pow(max(dot(R, uKeyDir), 0.0), 900.0) * 8.0 + pow(max(dot(R, uKeyDir), 0.0), 90.0) * 0.1;
   col += uKeyColor * spec * sh * cloudShadow(vWorld) * (0.3 + 0.7 * min(amp * 60.0, 1.0));
 
   // wet margin: the land shows through right at the edge

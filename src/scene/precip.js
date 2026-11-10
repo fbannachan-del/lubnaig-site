@@ -32,7 +32,7 @@ export function makePrecip(U, count = 3500) {
       }`,
     fragmentShader: /* glsl */ `
       precision highp float; uniform vec3 uAmbSky; uniform float uRain; uniform float uExposure; varying float vA;
-      void main(){ vec3 c = uAmbSky * 1.6 * uExposure + 0.04; gl_FragColor = vec4(pow(c / (1.0 + c), vec3(1.0/2.2)), vA * 0.5 * uRain); }`,
+      void main(){ vec3 c = uAmbSky * 1.6 * uExposure + 0.04; gl_FragColor = vec4(pow(c / (1.0 + c), vec3(1.0/2.2)), vA * 0.7 * uRain); }`,
     transparent: true, depthWrite: false,
   }));
   rain.frustumCulled = false; rain.layers.set(1);
