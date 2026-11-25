@@ -74,25 +74,26 @@ document.querySelectorAll('.lights button').forEach((b) => {
 // ---------- page furniture ----------
 $('y').textContent = new Date().getFullYear();
 
-// calculator: the same sums as before. A 37.5 hour week and £38,000 a year per role.
-const gb = new Intl.NumberFormat('en-GB');
+// calculator: hours back, valued at an editable loaded hourly cost in US dollars. Default $47 (BLS, June 2026).
+const us = new Intl.NumberFormat('en-US');
+const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 let sayTimer = 0;
 function calc() {
-  const p = +$('p').value, h = +$('h').value, s = +$('s').value / 100;
-  $('oP').textContent = p; $('oH').textContent = h; $('oS').textContent = `${Math.round(s * 100)}%`;
-  for (const k of ['p', 'h', 's']) { const el = $(k); el.style.setProperty('--fill', `${((el.value - el.min) / (el.max - el.min)) * 100}%`); }
-  const hours = p * h * s, roles = hours / 37.5;
-  const hoursTxt = gb.format(Math.round(hours));
-  const rolesTxt = roles >= 10 ? gb.format(Math.round(roles)) : roles.toFixed(1);
-  const saveTxt = `£${gb.format(Math.round(roles * 38000))}`;
-  $('rH').textContent = hoursTxt; $('rF').textContent = rolesTxt; $('rY').textContent = saveTxt;
+  const p = +$('p').value, h = +$('h').value, s = +$('s').value / 100, c = +$('c').value;
+  $('oP').textContent = p; $('oH').textContent = h; $('oS').textContent = `${Math.round(s * 100)}%`; $('oC').textContent = c;
+  for (const k of ['p', 'h', 's', 'c']) { const el = $(k); el.style.setProperty('--fill', `${((el.value - el.min) / (el.max - el.min)) * 100}%`); }
+  const hours = p * h * s, roles = hours / 40, yearly = hours * 52 * c;
+  const hoursTxt = us.format(Math.round(hours));
+  const rolesTxt = roles >= 10 ? us.format(Math.round(roles)) : roles.toFixed(1);
+  const valueTxt = usd.format(yearly);
+  $('rH').textContent = hoursTxt; $('rF').textContent = rolesTxt; $('rY').textContent = valueTxt;
   // screen readers get one settled sentence, not a stream of numbers while the slider moves
   clearTimeout(sayTimer);
   sayTimer = setTimeout(() => {
-    $('calcStatus').textContent = `${hoursTxt} hours a week back, ${rolesTxt} full time roles freed, about ${saveTxt} a year if you reduce headcount.`;
+    $('calcStatus').textContent = `${hoursTxt} hours a week back, ${rolesTxt} full-time roles' worth of capacity, ${valueTxt} estimated yearly value at your loaded hourly cost.`;
   }, 600);
 }
-['p', 'h', 's'].forEach((k) => $(k).addEventListener('input', calc));
+['p', 'h', 's', 'c'].forEach((k) => $(k).addEventListener('input', calc));
 calc();
 
 // the loch itself as the progress marker: its real centreline, smoothed, north at the top

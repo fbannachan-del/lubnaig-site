@@ -16,6 +16,7 @@ export const SHOTS = {
   step5:   { u: 0.57, h: 3.4, side: -50, lu: 0.2, lh: 120, ls: 200, fov: 38, shift: 0.17 },
   step6:   { u: 0.64, h: 7, side: 30, lu: 0.2, lh: 60, ls: 0, fov: 38, shift: 0.17 },
   // from the air, south-east of the loch, looking back up its whole length: the bend the name comes from
+  offers:  { pos: [1500, 1250, 4500], look: [-1000, 60, -900], fov: 40, shift: 0.17 },
   calc:    { pos: [1500, 1250, 4500], look: [-1000, 60, -900], fov: 40, shift: 0.17 },
   feel:    { u: 0.78, h: 3.2, side: -110, lu: 0.1, lh: 330, ls: 1100, fov: 40, shift: 0.15 },
   faq:     { u: 0.87, h: 24, side: 0, lu: 0.1, lh: 10, ls: 0, fov: 40, shift: 0.15 },

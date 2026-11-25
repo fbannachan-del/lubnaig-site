@@ -48,15 +48,20 @@ const hints = outs
   .concat(['height', 'water'].map((n) => `<link rel="preload" as="fetch" crossorigin href="/${find((f) => path.basename(f).startsWith(n + '-') && f.endsWith('.png'))}">`))
   .join('\n');
 
-let html = await readFile(path.join(root, 'src/index.html'), 'utf8');
-html = html
-  .replace('%JS%', js)
-  .replace('%CSS%', css)
-  .replace('%HINTS%', hints)
-  .replace('%FONT_SERIF_ITALIC%', font('newsreader-latin-opsz-italic'))
-  .replace('%FONT_SERIF%', font('newsreader-latin-wght-normal'))
-  .replace('%FONT_SANS%', font('hanken-grotesk-latin-wght-normal'));
-await writeFile(path.join(dist, 'index.html'), html);
+const page = (name, extras = {}) => {
+  let html = extras.html;
+  return html
+    .replaceAll('%JS%', extras.js || '')
+    .replaceAll('%CSS%', css)
+    .replaceAll('%HINTS%', extras.hints || '')
+    .replaceAll('%FONT_SERIF_ITALIC%', font('newsreader-latin-opsz-italic'))
+    .replaceAll('%FONT_SERIF%', font('newsreader-latin-wght-normal'))
+    .replaceAll('%FONT_SANS%', font('hanken-grotesk-latin-wght-normal'));
+};
+const indexHtml = await readFile(path.join(root, 'src/index.html'), 'utf8');
+await writeFile(path.join(dist, 'index.html'), page('index.html', { html: indexHtml, js, hints }));
+const privacyHtml = await readFile(path.join(root, 'src/privacy.html'), 'utf8');
+await writeFile(path.join(dist, 'privacy.html'), page('privacy.html', { html: privacyHtml }));
 await cp(path.join(root, 'public'), dist, { recursive: true });
 
 let total = 0;

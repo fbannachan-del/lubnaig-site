@@ -353,3 +353,26 @@ main:focus, section:focus { outline: none; }
 @media (prefers-reduced-motion: reduce) {
   * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* offers and guarantee */
+.offers { width: 100%; border-collapse: collapse; margin: 1.6rem 0 0; font: 400 0.92rem/1.4 var(--sans); }
+.offers th, .offers td { text-align: left; vertical-align: top; padding: 0.7rem 0.7rem 0.7rem 0; border-bottom: 1px solid var(--line); }
+.offers thead th { color: var(--ink-3); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; }
+.offers tbody th { font-weight: 600; color: var(--ink); padding-right: 1rem; white-space: nowrap; }
+.offers td { color: var(--ink-2); }
+.guar { margin-top: 1.5rem; padding: 1rem 0 0; border-top: 1px solid var(--line); color: var(--ink-2); }
+.guar b { color: var(--ink); font-weight: 600; }
+.contact-mail { margin-top: 1rem; color: var(--ink-2); }
+@media (max-width: 720px) {
+  .offers tbody th { white-space: normal; }
+}
+
+/* standalone document pages (privacy) */
+body.doc { overflow-x: hidden; }
+body.doc .bar { background: rgb(var(--veil) / 0.72); backdrop-filter: blur(16px); }
+.doc-main { position: relative; z-index: 1; max-width: 40rem; margin: 0 auto; padding: 8rem var(--gutter) 4rem; }
+.doc-main h1 { font-style: italic; font-weight: 350; font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.4rem); letter-spacing: -0.03em; margin: 0.4rem 0 0.6rem; }
+.doc-main h2 { font-style: italic; font-weight: 350; font-size: 1.6rem; margin: 2rem 0 0.6rem; }
+.doc-main p, .doc-main li { color: var(--ink-2); margin: 0 0 0.85rem; }
+.doc-main ul { padding-left: 1.2rem; list-style: disc; }
+.doc-main .eyebrow { font: 500 0.8rem/1.3 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
